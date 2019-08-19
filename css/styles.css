@@ -1,0 +1,9 @@
+article, aside, details, figcaption, figure, footer,header,
+hgroup, menu, nav, section { display: block; }
+.container {
+    max-width: 960px;
+    margin: 30px auto 0;
+}
+.form-wrap {
+    margin: 20px auto;
+}
