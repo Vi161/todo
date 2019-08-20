@@ -1,5 +1,8 @@
 article, aside, details, figcaption, figure, footer,header,
 hgroup, menu, nav, section { display: block; }
+* {
+    margin: 0;
+}
 .container {
     max-width: 960px;
     margin: 30px auto 0;
@@ -10,9 +13,16 @@ ul {
 li {
     list-style: none;
 }
-.button {
-
+.task-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
 }
+.button {
+    height: 20px;
+    margin-right: 10px;
+}
+
 .form-wrap {
     margin: 20px auto;
 }
