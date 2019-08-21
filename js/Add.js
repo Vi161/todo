@@ -14,7 +14,7 @@ function Add() {
     this.inputNew = document.querySelector('#inputNew');
     this.button = document.querySelector('#buttonAdd');
     this.buttonClick = function () {
-        var id = 3;
+        var id = 1;
         var ul = document.querySelector('.form-wrap>ul');
         var countId = function () {
             return id++;

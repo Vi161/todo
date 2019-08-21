@@ -22,7 +22,9 @@ li {
     height: 20px;
     margin-right: 10px;
 }
-
 .form-wrap {
     margin: 20px auto;
+}
+.task-done {
+    text-decoration: line-through;
 }
