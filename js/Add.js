@@ -11,28 +11,37 @@ function TaskField() {
 }
 
 function Add() {
+    this.inputNew = document.querySelector('#inputNew');
     this.button = document.querySelector('#buttonAdd');
     this.buttonClick = function () {
-        var id = 0;
-        var ul = document.querySelector('.form-wrap');
+        var id = 3;
+        var ul = document.querySelector('.form-wrap>ul');
         var countId = function () {
-            console.log('id',id++);
+            return id++;
         }
         var addElem = function () {
             ul.insertAdjacentHTML('beforeend',
                 '<li class="task-item" id="task'+id+'"> ' +
                 '<button class="button delete">delete</button>' +
-                '<button class="button done" id="buttonDone'+id+'">done</button> ' +
+                '<button class="button done">done</button> ' +
                 ' <p>'+ store.data.value +'</p> ' +
                 '</li>');
         }
-        return this.button.addEventListener('click', function () {
+        var onEnter = function () {
             store.data.value = taskField.inputNew.value;
             countId();
             addElem();
             taskField.inputNew.value = null;
             buttonAdd.disabled = true;
-        })
+        };
+        return this.button.addEventListener('click', function () {
+                    onEnter()
+                }) ||
+                this.inputNew.addEventListener("keyup", function(event) {
+                    if (event.keyCode === 13) {
+                        onEnter()
+                    }
+                });
     }
 }
 
