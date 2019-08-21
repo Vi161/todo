@@ -16,10 +16,14 @@ function Edit() {
             if (event.target.className == 'button delete') {
                 var deleteElement = document.querySelector('#'+event.target.parentNode.id);
                 deleteElement.parentNode.removeChild(deleteElement);
+                console.log('id for del ',event.target.parentNode.id);
+                store.data.arr.splice(event.target.parentNode.id, 1);
+                console.log(store.data.arr);
             } else event.preventDefault()
         });
     }
 }
+
 edit = new Edit();
 edit.done();
 edit.delete();

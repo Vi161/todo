@@ -14,7 +14,7 @@ function Add() {
     this.inputNew = document.querySelector('#inputNew');
     this.button = document.querySelector('#buttonAdd');
     this.buttonClick = function () {
-        var id = 1;
+        var id = 0;
         var ul = document.querySelector('.form-wrap>ul');
         var countId = function () {
             return id++;
@@ -22,13 +22,15 @@ function Add() {
         var addElem = function () {
             ul.insertAdjacentHTML('beforeend',
                 '<li class="task-item" id="task'+id+'"> ' +
-                '<button class="button delete">delete</button>' +
-                '<button class="button done">done</button> ' +
-                ' <p>'+ store.data.value +'</p> ' +
+                    '<button class="button delete">delete</button>' +
+                    '<button class="button done">done</button> ' +
+                    ' <p>'+ store.data.value +'</p> ' +
                 '</li>');
         }
         var onEnter = function () {
             store.data.value = taskField.inputNew.value;
+            store.data.arr.push('task'+id);
+            console.log(store.data.arr);
             countId();
             addElem();
             taskField.inputNew.value = null;
@@ -39,7 +41,9 @@ function Add() {
                 }) ||
                 this.inputNew.addEventListener("keyup", function(event) {
                     if (event.keyCode === 13) {
-                        onEnter()
+                        if (taskField.inputNew.value !== '') {
+                            onEnter()
+                        }
                     }
                 });
     }
