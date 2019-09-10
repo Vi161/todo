@@ -26,14 +26,6 @@ function Add() {
                 state : 1
             });
         };
-        let temp = function () {
-            add.list.insertAdjacentHTML('beforeend',
-                '<li class="task-item" id="'+store.data.arr[store.data.arr.length - 1].id+'"> ' +
-                '<button class="button delete">delete</button>' +
-                '<button class="button done">done</button> ' +
-                ' <p>'+ store.data.arr[store.data.arr.length - 1].value +'</p> ' +
-                '</li>');
-        };
         let onEnter = function () {
             addElemToArr();
             add.updateElemDOM();
