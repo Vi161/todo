@@ -26,14 +26,42 @@ function Add() {
                 state : 1
             });
         };
-        var updateElemDOM = function () {
-
+        var domElem = function (i) {
+            '<li class="task-item" id="'+store.data.arr[i].id+'"> ' +
+                '<button class="button delete">delete</button>' +
+                '<button class="button done">done</button> ' +
+                ' <p>'+ store.data.arr[i].value +'</p> ' +
+            '</li>'
+        };
+        var temp = function () {
             ul.insertAdjacentHTML('beforeend',
                 '<li class="task-item" id="'+store.data.arr[store.data.arr.length - 1].id+'"> ' +
+                '<button class="button delete">delete</button>' +
+                '<button class="button done">done</button> ' +
+                ' <p>'+ store.data.arr[store.data.arr.length - 1].value +'</p> ' +
+                '</li>');
+        };
+        var updateElemDOM = function () {
+            console.log(store.data.arr.length);
+            var elem = document.querySelector('ul');
+            elem.innerHTML = "";
+            // elem.remove();
+            // document.createElement("ul");
+            for (var i = 0; i < store.data.arr.length; i++) {
+
+                // var newDiv = document.createElement("li");
+                // var newContent = document.createTextNode('');
+                // newDiv.appendChild(newContent)
+                // elem.appendChild(newDiv);
+
+                ul.insertAdjacentHTML('beforeend',
+                    '<li class="task-item" id="'+store.data.arr[store.data.arr.length - 1].id+'"> ' +
                     '<button class="button delete">delete</button>' +
                     '<button class="button done">done</button> ' +
-                    ' <p>'+ store.data.arr[store.data.arr.length - 1].value +'</p> ' +
-                '</li>');
+                    ' <p>'+ store.data.arr[i].value +'</p> ' +
+                    '</li>');
+            }
+
         };
         var onEnter = function () {
             addElemToArr();
