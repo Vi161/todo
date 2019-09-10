@@ -9,32 +9,37 @@ function TaskField() {
         })
     }
 }
-
 function Add() {
     this.inputNew = document.querySelector('#inputNew');
     this.button = document.querySelector('#buttonAdd');
-    this.buttonClick = function () {
-        var id = 0;
+    this.addTaskToDOM = function () {
+        // var id = 1;
         var ul = document.querySelector('.form-wrap>ul');
-        var countId = function () {
-            return id++;
-        }
-        var addElem = function () {
+        // var countId = function () {
+        //     return id = new Date().getTime();
+        // };
+
+        var addElemToArr = function () {
+            store.data.arr.push({
+                id : new Date().getTime(),
+                value : taskField.inputNew.value,
+                state : 1
+            });
+        };
+        var updateElemDOM = function () {
             ul.insertAdjacentHTML('beforeend',
-                '<li class="task-item" id="task'+id+'"> ' +
+                '<li class="task-item" id="'+store.data.arr[store.data.arr.length - 1].id+'"> ' +
                     '<button class="button delete">delete</button>' +
                     '<button class="button done">done</button> ' +
-                    ' <p>'+ store.data.value +'</p> ' +
+                    ' <p>'+ store.data.arr[store.data.arr.length - 1].value +'</p> ' +
                 '</li>');
-        }
+        };
         var onEnter = function () {
-            store.data.value = taskField.inputNew.value;
-            store.data.arr.push('task'+id);
-            console.log(store.data.arr);
-            countId();
-            addElem();
+            addElemToArr();
+            updateElemDOM();
             taskField.inputNew.value = null;
             buttonAdd.disabled = true;
+            console.log(store.data.arr)
         };
         return this.button.addEventListener('click', function () {
                     onEnter()
@@ -53,5 +58,5 @@ var add = new Add();
 var taskField = new TaskField();
 var store = new Store();
 
-add.buttonClick();
+add.addTaskToDOM();
 taskField.valueLength();

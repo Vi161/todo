@@ -14,11 +14,13 @@ function Edit() {
     this.delete = function () {
         this.elem.addEventListener('click', function (event) {
             if (event.target.className == 'button delete') {
-                var deleteElement = document.querySelector('#'+event.target.parentNode.id);
-                deleteElement.parentNode.removeChild(deleteElement);
-                console.log('id for del ',event.target.parentNode.id);
-                store.data.arr.splice(event.target.parentNode.id, 1);
-                console.log(store.data.arr);
+                store.data.arr.splice(1,1);
+                console.log(store.data.arr)
+                // var deleteElement = document.querySelector('#'+event.target.parentNode.id);
+                // deleteElement.parentNode.removeChild(deleteElement);
+                // console.log('id for del ',event.target.parentNode.id);
+                // store.data.arr.splice(event.target.parentNode.id, 1);
+                // console.log(store.data.arr);
             } else event.preventDefault()
         });
     }
