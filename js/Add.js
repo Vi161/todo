@@ -13,20 +13,21 @@ function Add() {
     this.inputNew = document.querySelector('#inputNew');
     this.button = document.querySelector('#buttonAdd');
     this.addTaskToDOM = function () {
-        // var id = 1;
+        var id = 0;
         var ul = document.querySelector('.form-wrap>ul');
-        // var countId = function () {
-        //     return id = new Date().getTime();
-        // };
+        var countId = function () {
+            return ++id;
+        };
 
         var addElemToArr = function () {
             store.data.arr.push({
-                id : new Date().getTime(),
+                id : id,
                 value : taskField.inputNew.value,
                 state : 1
             });
         };
         var updateElemDOM = function () {
+
             ul.insertAdjacentHTML('beforeend',
                 '<li class="task-item" id="'+store.data.arr[store.data.arr.length - 1].id+'"> ' +
                     '<button class="button delete">delete</button>' +
@@ -42,12 +43,14 @@ function Add() {
             console.log(store.data.arr)
         };
         return this.button.addEventListener('click', function () {
-                    onEnter()
+                    countId();
+                    onEnter();
                 }) ||
                 this.inputNew.addEventListener("keyup", function(event) {
                     if (event.keyCode === 13) {
                         if (taskField.inputNew.value !== '') {
-                            onEnter()
+                            countId();
+                            onEnter();
                         }
                     }
                 });
