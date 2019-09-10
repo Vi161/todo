@@ -34,28 +34,6 @@ function Add() {
                 ' <p>'+ store.data.arr[store.data.arr.length - 1].value +'</p> ' +
                 '</li>');
         };
-        // let updateElemDOM = function () {
-        //     console.log(store.data.arr.length);
-        //     let elem = document.querySelector('ul');
-        //     elem.innerHTML = "";
-        //     // elem.remove();
-        //     // document.createElement("ul");
-        //     for (let i = 0; i < store.data.arr.length; i++) {
-        //
-        //         // let newDiv = document.createElement("li");
-        //         // let newContent = document.createTextNode('');
-        //         // newDiv.appendChild(newContent)
-        //         // elem.appendChild(newDiv);
-        //
-        //         ul.insertAdjacentHTML('beforeend',
-        //             '<li class="task-item" id="'+store.data.arr[store.data.arr.length - 1].id+'"> ' +
-        //             '<button class="button delete">delete</button>' +
-        //             '<button class="button done">done</button> ' +
-        //             ' <p>'+ store.data.arr[i].value +'</p> ' +
-        //             '</li>');
-        //     }
-        //
-        // };
         let onEnter = function () {
             addElemToArr();
             add.updateElemDOM();
@@ -109,16 +87,10 @@ function Edit() {
             if (event.target.className == 'button delete') {
                 let selfId = event.target.parentNode.id;
                 console.log('id=', store.data.arr.filter(item => item.id != selfId));
-                // store.data.arr.splice(1,1);
                 store.data.arr = store.data.arr.filter(item => item.id != selfId);
 
                 add.updateElemDOM();
                 console.log(store.data.arr)
-                // let deleteElement = document.querySelector('#'+event.target.parentNode.id);
-                // deleteElement.parentNode.removeChild(deleteElement);
-                // console.log('id for del ',event.target.parentNode.id);
-                // store.data.arr.splice(event.target.parentNode.id, 1);
-                // console.log(store.data.arr);
             } else event.preventDefault()
         });
     }
