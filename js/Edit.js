@@ -47,11 +47,15 @@ function Add() {
     }
     this.updateElemDOM = function () {
         this.list.innerHTML = "";
+        let buttonDone = '<button class="button done">done</button>';
+        let buttonRevert = '<button class="button done">revert</button>';
+        let button = '';
         for (let i = 0; i < store.data.arr.length; i++) {
+            (store.data.arr[i].state == true) ? (button = buttonDone) : (button = buttonRevert);
             add.list.insertAdjacentHTML('beforeend',
                 '<li class="task-item" id="'+store.data.arr[i].id+'"> ' +
                 '<button class="button delete">delete</button>' +
-                '<button class="button done">done</button> ' +
+                button +
                 ' <p>'+ store.data.arr[i].value +'</p> ' +
                 '</li>');
         }
@@ -63,14 +67,20 @@ function Add() {
 
 function Edit() {
     this.elem = document.querySelector('ul');
-    this.done = function() {
+    this.state = function() {
         this.elem.addEventListener('click', function (event) {
             if (event.target.className == 'button done') {
-                let doneElementText = document.querySelector('#'+event.target.parentNode.id +'>p');
-                let doneElementButton = document.querySelector('#'+event.target.parentNode.id +' .done');
-                doneElementButton.disabled = true;
-                doneElementText.className += 'task-done';
-                console.log('edit', doneElementButton)
+                let selfId = event.target.parentNode.id;
+                let arr = store.data.arr;
+                let index = store.data.arr.findIndex(fruit => fruit.id == selfId);
+                let selfElem = store.data.arr[index];
+
+                console.log(selfId);
+                selfElem.state = !selfElem.state;
+                console.log('state = ', selfElem.state);
+                console.log(store.data.arr);
+                add.updateElemDOM();
+
             } else event.preventDefault()
         });
     };
@@ -78,7 +88,7 @@ function Edit() {
         this.elem.addEventListener('click', function (event) {
             if (event.target.className == 'button delete') {
                 let selfId = event.target.parentNode.id;
-                console.log('id=', store.data.arr.filter(item => item.id != selfId));
+                console.log('id=', selfId);
                 store.data.arr = store.data.arr.filter(item => item.id != selfId);
 
                 add.updateElemDOM();
@@ -94,5 +104,5 @@ let store = new Store();
 add.addTaskToDOM();
 taskField.valueLength();
 edit = new Edit();
-edit.done();
+edit.state();
 edit.delete();
