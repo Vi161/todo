@@ -25,6 +25,10 @@ function Add() {
                 value : taskField.inputNew.value,
                 state : 1
             });
+            let serialObj = JSON.stringify(store.data.arr); //сериализуем его
+            localStorage.setItem("arrKey", serialObj); //запишем его в хранилище по ключу "myKey"
+
+            console.log(store.data.arr);
         };
         let onEnter = function () {
             addElemToArr();
@@ -63,15 +67,12 @@ function Add() {
     };
 }
 
-
-
 function Edit() {
     this.elem = document.querySelector('ul');
     this.state = function() {
         this.elem.addEventListener('click', function (event) {
             if (event.target.className == 'button done') {
                 let selfId = event.target.parentNode.id;
-                let arr = store.data.arr;
                 let index = store.data.arr.findIndex(fruit => fruit.id == selfId);
                 let selfElem = store.data.arr[index];
 
@@ -90,9 +91,9 @@ function Edit() {
                 let selfId = event.target.parentNode.id;
                 console.log('id=', selfId);
                 store.data.arr = store.data.arr.filter(item => item.id != selfId);
-
+                let serialObj = JSON.stringify(store.data.arr); //сериализуем его
+                localStorage.setItem("arrKey", serialObj); //запишем его в хранилище по ключу "myKey"
                 add.updateElemDOM();
-                console.log(store.data.arr)
             } else event.preventDefault()
         });
     }
