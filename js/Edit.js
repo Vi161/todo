@@ -22,18 +22,17 @@ function Add() {
     let id = 0;
     let countId = function () {
       return ++id;
+      // return Date.now();
     };
 
     let addElemToArr = function () {
       store.data.arr.push({
-        id : id,
+        id : Date.now(),
         value : taskField.inputNew.value,
         state : 1
       });
       let serialObj = JSON.stringify(store.data.arr); //сериализуем его
       localStorage.setItem("arrKey", serialObj); //запишем его в хранилище по ключу "myKey"
-
-      console.log(store.data.arr);
     };
     let onEnter = function () {
       addElemToArr();
@@ -42,13 +41,13 @@ function Add() {
       buttonAdd.disabled = true;
     };
     return this.button.addEventListener('click', function () {
-        countId();
+        // countId();
         onEnter();
       }) ||
       this.inputNew.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
           if (taskField.inputNew.value !== '') {
-            countId();
+            // countId();
             onEnter();
           }
         }
@@ -58,14 +57,21 @@ function Add() {
     this.list.innerHTML = "";
     let buttonDone = '<button class="button done">done</button>';
     let buttonRevert = '<button class="button done">revert</button>';
+    let classDone = '';
     let button = '';
     for (let i = 0; i < store.data.arr.length; i++) {
-      (store.data.arr[i].state == true) ? (button = buttonDone) : (button = buttonRevert);
+      if (store.data.arr[i].state == true) {
+        button = buttonDone;
+        classDone = ''
+      } else {
+        button = buttonRevert;
+        classDone = 'js-task-done'
+      };
       add.list.insertAdjacentHTML('beforeend',
         '<li class="task-item" id="'+store.data.arr[i].id+'"> ' +
         '<button class="button delete">delete</button>' +
         button +
-        ' <p>'+ store.data.arr[i].value +'</p> ' +
+        ' <p class="' + classDone + '">'+ store.data.arr[i].value +'</p> ' +
         '</li>');
     }
 
