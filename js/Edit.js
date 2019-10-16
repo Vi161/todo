@@ -31,8 +31,7 @@ function Add() {
         value : taskField.inputNew.value,
         state : 1
       });
-      let serialObj = JSON.stringify(store.data.arr); //сериализуем его
-      localStorage.setItem("arrKey", serialObj); //запишем его в хранилище по ключу "myKey"
+      serialStorage();
     };
     let onEnter = function () {
       addElemToArr();
@@ -59,6 +58,9 @@ function Add() {
     let buttonRevert = '<button class="button done">revert</button>';
     let classDone = '';
     let button = '';
+    if (store.data.arr === null) {
+      store.data.arr = [];
+    }
     for (let i = 0; i < store.data.arr.length; i++) {
       if (store.data.arr[i].state == true) {
         button = buttonDone;
@@ -88,8 +90,7 @@ function Edit() {
         let selfElem = store.data.arr[index];
 
         selfElem.state = !selfElem.state;
-        let serialObj = JSON.stringify(store.data.arr); //сериализуем его
-        localStorage.setItem("arrKey", serialObj); //запишем его в хранилище по ключу "myKey"
+        serialStorage();
         add.updateElemDOM();
       } else event.preventDefault()
     });
@@ -97,15 +98,19 @@ function Edit() {
   this.delete = function () {
     this.elem.addEventListener('click', function (event) {
       if (event.target.className == 'button delete') {
+        // store.data.arr.splice()
         let selfId = event.target.parentNode.id;
-        console.log('id=', selfId);
         store.data.arr = store.data.arr.filter(item => item.id != selfId);
-        let serialObj = JSON.stringify(store.data.arr); //сериализуем его
-        localStorage.setItem("arrKey", serialObj); //запишем его в хранилище по ключу "myKey"
+        console.log('selfId: ', selfId, 'arr: ', store.data.arr);
+        serialStorage();
         add.updateElemDOM();
       } else event.preventDefault()
     });
   }
+}
+function serialStorage() {
+  let serialObj = JSON.stringify(store.data.arr); //сериализуем его
+  localStorage.setItem("arrKey", serialObj); //запишем его в хранилище по ключу "myKey"
 }
 let add = new Add();
 let taskField = new TaskField();
