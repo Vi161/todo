@@ -64,7 +64,6 @@ function Add() {
     let endDomElem = (add.currentPage - 1) * add.paginationElemCol + add.paginationElemCol;
     for (let i = startDomElem; i < endDomElem ; i++) {
       if (store.data.arr[i]) {
-        console.log('df ', endDomElem);
         if (store.data.arr[i].state == 1) {
           button = buttonDone;
           classDone = ''
@@ -83,31 +82,40 @@ function Add() {
     this.pagination();
   };
   this.currentPage = 1;
+
   this.paginationElemCol = 5;
   this.pagination = function () {
     if (store.data.arr.length > add.paginationElemCol) {
+      let paginationDisabled = false;
       let paginBut = document.querySelector('.form-wrap>ul');
       paginBut.insertAdjacentHTML('beforeend',
         `<div class="pagination-wrap">
                  <button class="button prev">prev</button>
-                 <button class="button next">next</button>
+                 <button class="button next disabled='${paginationDisabled}'">next</button>
               </div>`
       );
       let maxPage =  store.data.arr.length/add.paginationElemCol;
       let buttonPrev = document.querySelector('button.prev');
       let buttonNext = document.querySelector('button.next');
-      console.log('pagin')
       buttonNext.addEventListener('click', function () {
         if (add.currentPage < maxPage ) {
-          console.log('this ', add.currentPage++);
+          add.currentPage++;
+          console.log(add.currentPage, maxPage);
+          add.updateElemDOM();
+        }
+        if (add.currentPage  >= maxPage) {
+          paginationDisabled = true;
+          console.log('sadfsdf', paginationDisabled) //перенести в блок отрисовки кнопки в доме
           add.updateElemDOM();
         }
 
       });
       buttonPrev.addEventListener('click', function () {
         if (add.currentPage > 1) {
-          console.log('this ', add.currentPage--);
+          add.currentPage--;
           add.updateElemDOM();
+          console.log(add.currentPage, maxPage);
+
         }
       });
     }
@@ -133,7 +141,6 @@ function Edit() {
   this.delete = function () {
     this.elem.addEventListener('click', function (event) {
       if (event.target.className == 'button delete') {
-        // store.data.arr.splice()
         let selfId = event.target.parentNode.id;
         store.data.arr = store.data.arr.filter(item => item.id != selfId);
         serialStorage();
